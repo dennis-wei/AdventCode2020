@@ -1,7 +1,10 @@
-from itertools import combinations
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
-with open("input.txt", "r") as f:
-    input = set(int(l.strip()) for l in f)
+from itertools import combinations
+from util.helpers import int_parsed_input
+
+input = int_parsed_input()
 
 print("Part 1")
 for i in input:
@@ -10,6 +13,7 @@ for i in input:
         print(f"n1: {i}, n2: {n2}. Answer: {i * n2}")
         break
 
+print("Part 2")
 for i, j in combinations(input, 2):
     if 2020 - (i + j) in input:
         n3 = 2020 - (i + j)
