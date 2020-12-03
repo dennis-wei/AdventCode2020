@@ -3,9 +3,14 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from itertools import combinations
 from collections import defaultdict
-from util.helpers import space_split_input
+from util.helpers import space_split, split_newline
 
-input = space_split_input()
+if len(sys.argv) > 1:
+    raw_input = split_newline(sys.stdin.read())
+else:
+    with open("input.txt", "r") as f:
+        raw_input = [l for l in f]
+input = space_split(raw_input)
 
 print("Part 1")
 total = 0
