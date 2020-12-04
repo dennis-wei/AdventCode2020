@@ -29,7 +29,7 @@ answer1 = trees
 
 print("Part 1")
 print(f"Answer: " + str(answer1))
-# submit(3, 1, answer1)
+print(submit(3, 1, answer1).text)
 
 
 print("Part 2")
@@ -48,4 +48,4 @@ for right, down in [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]:
 
 answer2 = total_product
 print(f"Answer: " + str(answer2))
-# submit(3, 2, answer1)
+print(submit(3, 2, answer1).text)

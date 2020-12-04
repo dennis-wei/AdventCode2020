@@ -28,11 +28,11 @@ answer2 = None
 
 print("Part 1")
 print(f"Answer: {{answer1}}")
-# submit({day}, 1, answer1)
+# print(submit({day}, 1, answer1).text)
 
 print("Part 2")
 print(f"Answer: {{answer2}}")
-# submit({day}, 2, answer1)
+# print(submit({day}, 2, answer1).text)
 """
 
 if not os.path.exists(day):
