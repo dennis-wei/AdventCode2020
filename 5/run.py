@@ -46,24 +46,15 @@ def handle_str(s):
     col = lo
     return row, col
 
-max = 0
-for inp in raw_input:
-    row, col = handle_str(inp)
-    if get_seat(row, col) > max:
-        max = get_seat(row, col)
-
-
-answer1 = max
+max_id = max(get_seat(*handle_str(inp)) for inp in raw_input)
+answer1 = max_id
 
 print("Part 1")
 print(f"Answer: {answer1}")
 
 answer2 = None
 
-taken_seats = set()
-for inp in raw_input:
-    row, col = handle_str(inp)
-    taken_seats.add(get_seat(row, col))
+taken_seats = set(get_seat(*handle_str(inp)) for inp in raw_input)
 for s in taken_seats:
     if s + 2 in taken_seats and s + 1 not in taken_seats:
         answer2 = s + 1
