@@ -1,9 +1,6 @@
-import sys
-import os
 
-day = sys.argv[1]
-template = f"""
 import os, sys
+from re import split
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import argparse
 import clipboard
@@ -22,26 +19,32 @@ if args.from_std_in:
 else:
     with open("input.txt", "r") as f:
         raw_input = f.read()
-if raw_input[-1] == "":
-    raw_input = raw_input[:-1]
 
-input = raw_input
+input = [r.replace("\n", " ").split() for r in raw_input.split("\n\n")]
 
-def solve(input):
-    return None, None
+def part1_row(inp):
+    res = reduce(lambda x, y: x.union(y), inp, set())
+    return res
 
-answer1, answer2 = solve(input)
+def part1(full_input):
+    return sum(len(part1_row(row)) for row in full_input)
+
+
+answer1 = part1(input)
 
 print("Part 1")
-print(f"Answer: {{answer1}}")
-# print(submit({day}, 1, answer1).text)
+print(f"Answer: {answer1}")
+# print(submit(6, 1, answer1).text)
+
+def part2_row(inp):
+    res = reduce(lambda x, y: Counter(x) + Counter(y), inp, Counter())
+    return set(k for k, v  in res.items() if v == len(inp))
+
+def part2(full_input):
+    return sum(len(part2_row(row)) for row in full_input)
+
+answer2 = part2(input)
 
 print("Part 2")
-print(f"Answer: {{answer2}}")
-# print(submit({day}, 2, answer1).text)
-"""
-
-if not os.path.exists(day):
-    os.makedirs(day)
-with open(f"{day}/run.py", 'w') as f:
-    f.write(template)
+print(f"Answer: {answer2}")
+# print(submit(6, 2, answer1).text)
