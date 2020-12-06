@@ -32,7 +32,7 @@ def fast_binary(s):
     return int(s.replace("F", "0").replace("B", "1").replace("L", "0").replace("R", "1"), 2)
 
 def get_seat_id(s):
-    return fast_binary(s[:7]) * 8 + fast_binary(s[7:])
+    return fast_binary(s)
 
 def handle_str(s):
     lo, hi = 0, 127
