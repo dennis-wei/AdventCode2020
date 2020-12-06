@@ -27,6 +27,12 @@ def do_binary(char, lo, hi):
         return lo, floor((lo + hi) / 2)
     elif char == "B" or char == "R":
         return ceil((lo + hi) / 2) , hi
+    
+def fast_binary(s):
+    return int(s.replace("F", "0").replace("B", "1").replace("L", "0").replace("R", "1"), 2)
+
+def get_seat_id(s):
+    return fast_binary(s[:7]) * 8 + fast_binary(s[7:])
 
 def handle_str(s):
     lo, hi = 0, 127
@@ -46,7 +52,7 @@ def handle_str(s):
     col = lo
     return row, col
 
-max_id = max(get_seat(*handle_str(inp)) for inp in raw_input)
+max_id = max(get_seat_id(inp) for inp in raw_input)
 answer1 = max_id
 
 print("Part 1")
@@ -54,7 +60,7 @@ print(f"Answer: {answer1}")
 
 answer2 = None
 
-taken_seats = set(get_seat(*handle_str(inp)) for inp in raw_input)
+taken_seats = set(get_seat_id(inp) for inp in raw_input)
 for s in taken_seats:
     if s + 2 in taken_seats and s + 1 not in taken_seats:
         answer2 = s + 1
