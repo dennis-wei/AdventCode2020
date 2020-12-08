@@ -22,8 +22,7 @@ if args.from_std_in:
 else:
     with open("input.txt", "r") as f:
         raw_input = f.read()
-if raw_input[-1] == "":
-    raw_input = raw_input[:-1]
+raw_input = raw_input.strip()
 
 input = raw_input
 
