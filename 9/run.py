@@ -5,7 +5,7 @@ import argparse
 import clipboard
 
 from itertools import combinations
-from collections import defaultdict, Counter, deque
+from collections import defaultdict, Counter, deque, OrderedDict
 from util.helpers import split_newline, space_split, int_parsed_list, list_of_ints, get_all_nums, submit, Input
 from math import floor, ceil
 from functools import reduce
@@ -29,8 +29,9 @@ input = (
         # .line_tokens(sep = "\n", line_sep = "\n\n")
 )
 
-def create_sliding_window(input, start, stop):
-    return set(input[start:stop])
+def update_sliding_window(window, input, stop):
+    window.popitem(last=False)
+    window[input[stop]] = None
 
 def pair_exists(target, window):
     for e in window:
@@ -39,25 +40,29 @@ def pair_exists(target, window):
     return False
 
 
+# WINDOW_SIZE = 5
 WINDOW_SIZE = 25
 def solve(nums):
     part1 = None
+    window = OrderedDict({n: None for n in nums[:WINDOW_SIZE]}.items())
     for i in range(WINDOW_SIZE, len(nums)):
-        window = create_sliding_window(nums, i - WINDOW_SIZE, i)
         target = nums[i]
         if not pair_exists(target, window):
             part1 = target
             break
+        update_sliding_window(window, nums, i)
 
     start = 0
     stop = 1
+    sum_attempt = nums[0]
     while True:
-        sum_attempt = sum(nums[start:stop])
         if sum_attempt == part1:
             break
         elif sum_attempt < part1:
+            sum_attempt += nums[stop]
             stop += 1
         elif sum_attempt > part1:
+            sum_attempt -= nums[start]
             start += 1
     
     min_num = min(nums[start:stop])
