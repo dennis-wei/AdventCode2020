@@ -40,3 +40,21 @@ def submit(day, part, answer):
     }
     return requests.post(f"https://adventofcode.com/2020/day/{day}/answer", data = f"level={part}&answer={answer}", headers=headers)
     
+class Input:
+    def __init__(self, raw_input):
+        self.raw_input = raw_input
+    
+    def all(self):
+        return self.raw_input
+
+    def lines(self):
+        return self.raw_input.split("\n")    
+
+    def line_tokens(self, sep = " ", line_sep = "\n"):
+        return [l.split(sep) for l in self.raw_input.split(line_sep)]
+    
+    def ints(self):
+        return [int(l.strip()) for l in self.lines()]
+
+    def int_lists(self):
+        return [get_all_nums(l) for l in self.lines()]

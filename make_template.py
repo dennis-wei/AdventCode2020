@@ -10,7 +10,7 @@ import clipboard
 
 from itertools import combinations
 from collections import defaultdict, Counter, deque
-from util.helpers import split_newline, space_split, int_parsed_list, list_of_ints, get_all_nums, submit
+from util.helpers import split_newline, space_split, int_parsed_list, list_of_ints, get_all_nums, submit, Input
 from math import floor, ceil
 from functools import reduce
 
@@ -24,7 +24,14 @@ else:
         raw_input = f.read()
 raw_input = raw_input.strip()
 
-input = raw_input
+input = (
+    Input(raw_input)
+        # .all()
+        .ints()
+        # .lines()
+        # .line_tokens()
+        # .line_tokens(sep = "\\n", line_sep = "\\n\\n")
+)
 
 def solve(input):
     return None, None

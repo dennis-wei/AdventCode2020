@@ -6,7 +6,7 @@ import clipboard
 
 from itertools import combinations
 from collections import defaultdict, Counter, deque
-from util.helpers import split_newline, space_split, int_parsed_list, list_of_ints, get_all_nums, submit
+from util.helpers import split_newline, space_split, int_parsed_list, list_of_ints, get_all_nums, submit, Input
 from math import floor, ceil
 from functools import reduce
 
@@ -20,7 +20,14 @@ else:
         raw_input = f.read()
 raw_input = raw_input.strip()
 
-input = raw_input
+input = (
+    Input(raw_input)
+        # .all()
+        .ints()
+        # .lines()
+        # .line_tokens()
+        # .line_tokens(sep = "\n", line_sep = "\n\n")
+)
 
 def create_sliding_window(input, start, stop):
     return set(input[start:stop])
@@ -33,9 +40,8 @@ def pair_exists(target, window):
 
 
 WINDOW_SIZE = 25
-def solve(input):
+def solve(nums):
     part1 = None
-    nums = [int(n.strip()) for n in input.split("\n")]
     for i in range(WINDOW_SIZE, len(nums)):
         window = create_sliding_window(nums, i - WINDOW_SIZE, i)
         target = nums[i]
