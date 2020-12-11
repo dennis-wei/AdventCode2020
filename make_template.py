@@ -13,6 +13,7 @@ from collections import defaultdict, Counter, deque
 from util.helpers import split_newline, space_split, int_parsed_list, list_of_ints, get_all_nums, submit, Input
 from math import floor, ceil
 from functools import reduce
+from copy import deepcopy
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--from-std-in", action='store_true', default=False)
@@ -28,6 +29,7 @@ input = (
     Input(raw_input)
         # .all()
         .ints()
+        # .tokens()
         # .lines()
         # .line_tokens()
         # .line_tokens(sep = "\\n", line_sep = "\\n\\n")

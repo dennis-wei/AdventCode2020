@@ -47,14 +47,44 @@ class Input:
     def all(self):
         return self.raw_input
 
-    def lines(self):
-        return self.raw_input.split("\n")    
+    def tokens(self, sep = r"[\s\n]+"):
+        return re.compile(sep).split(self.content)
 
-    def line_tokens(self, sep = " ", line_sep = "\n"):
-        return [l.split(sep) for l in self.raw_input.split(line_sep)]
-    
+    def line_tokens(self, sep = r"[\s]+", line_sep = r"\n"):
+	    return [re.compile(sep).split(line) for line in re.compile(line_sep).split(self.content)]
+
+    def lines(self):
+        return self.raw_input.splitlines()
+
     def ints(self):
         return [int(l.strip()) for l in self.lines()]
 
-    def int_lists(self):
+    def int_tokens(self):
         return [get_all_nums(l) for l in self.lines()]
+
+class Grid:
+    def __init__(self, input, replacements = {}):
+        self.grid = {}
+        self.height = len(input)
+        self.length = len(input[0])
+        for row_num, row in enumerate(input):
+            for col_num, c in enumerate(row):
+                self.grid[(row_num, col_num)] = replacements.get(c, c)
+    
+    def get_adjacent(self, x, y, diagonal=True):
+        ret = {}
+        if diagonal:
+            checks = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]
+        else:
+            checks = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        for xd, yd in checks:
+            if (x + xd, y + yd) in self.grid:
+                ret[(x + xd, y + yd)] = self.grid[x + xd, y + yd]
+        return ret
+
+    def print_grid(self):
+        for i in range(self.height):
+            for j in range(self.length):
+                print(self.grid[i, j], end="")
+            print()
+        print()
