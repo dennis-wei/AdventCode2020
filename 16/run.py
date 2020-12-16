@@ -38,19 +38,15 @@ def parse_fields(rows):
     for r in rows:
         field_name = r.split(":")[0]
         l1, h1, l2, h2 = get_all_nums(r)
-        by_range[((l1, h1), (l2, h2))] = field_name
+        by_range[((l1, h1 + 1), (l2, h2 + 1))] = field_name
         for i in range(l1, h1 + 1):
             by_num[i].append(field_name)
         for i in range(l2, h2 + 1):
             by_num[i].append(field_name)
     return by_num, by_range
 
-def in_range(target_range, elem):
-    return target_range[0] <= elem and target_range[1] >= elem
-
 def in_multi_range(target_ranges, input):
-    ret = all(in_range(target_ranges[0], e) or in_range(target_ranges[1], e) for e in input)
-    return ret
+    return all(e in range(*target_ranges[0]) or e in range(*target_ranges[1]) for e in input)
 
 def solve(input):
     by_num, by_range = parse_fields(input[0])
