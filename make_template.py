@@ -29,7 +29,7 @@ input = (
     Input(raw_input)
         # .all()
         .ints()
-        .int_tokens()
+        # .int_tokens()
         # .tokens()
         # .lines()
         # .line_tokens()

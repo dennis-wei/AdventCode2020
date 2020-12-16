@@ -51,7 +51,7 @@ class Input:
         return re.compile(sep).split(self.content)
 
     def line_tokens(self, sep = r"[\s]+", line_sep = r"\n"):
-	    return [re.compile(sep).split(line) for line in re.compile(line_sep).split(self.content)]
+	    return [re.compile(sep).split(line) for line in re.compile(line_sep).split(self.raw_input)]
 
     def lines(self):
         return self.raw_input.splitlines()
