@@ -3,6 +3,7 @@ import os
 
 day = sys.argv[1]
 template = f"""
+import time
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import argparse
@@ -39,6 +40,7 @@ input = (
 def solve(input):
     return None, None
 
+start = time.time()
 answer1, answer2 = solve(input)
 
 print("Part 1")
@@ -48,7 +50,8 @@ print(f"Answer: {{answer1}}")
 print("Part 2")
 print(f"Answer: {{answer2}}")
 # print(submit({day}, 2, answer1).text)
-"""
+print(f"Took {{time.time() - start}} seconds for both parts")
+""".strip()
 
 if not os.path.exists(day):
     os.makedirs(day)
