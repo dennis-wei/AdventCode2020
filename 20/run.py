@@ -11,6 +11,8 @@ from math import floor, ceil, sqrt
 from functools import reduce
 from copy import deepcopy
 
+from colorama import Fore, Style
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--from-std-in", action='store_true', default=False)
 args = parser.parse_args()
@@ -413,7 +415,13 @@ def get_num_dragons(grid):
         print("Correctly orientated puzzle")
         for i in range(len(grid)):
             for j in range(len(grid)):
-                print(as_dict[(i, j)], end = "")
+                char = as_dict[(i, j)]
+                if char == '.':
+                    print(f"{Fore.BLUE}.{Style.RESET_ALL}", end = "")
+                elif char == '#':
+                    print(f"{Fore.BLUE}^{Style.RESET_ALL}", end = "")
+                elif char == 'O':
+                    print(f"{Fore.GREEN}O{Style.RESET_ALL}", end = "")
             print()
     return num_dragons, sum(v == '#' for v in as_dict.values())
 
